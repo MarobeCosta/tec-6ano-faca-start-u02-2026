@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<!-- ============================================================
+  ARTEFATO   FACAST-6ANO-U02-V0100-A01
+  TIPO       ESTUDANTE
+  NO         N.05.01.02.03_FACA-START-U02-A0104_004
+  CHAT       frag. 6e5b233e
+  CLD        006
+  GERADO EM  16/09/2026
+  MOTOR      motor proprio provisorio · motor-faca ainda nao recebido
+  AUDITORIA  a fazer
+  PARIDADE   visual do NAV07REV-6ANO-V1135-33Q · checklist nao recebido
+  PUBLICADO  a preencher
+============================================================ -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Faça como eu fiz · 6º ano · Unidade 02</title>
+<style>
+:root{
+  --sc-evt:#FFBF00; --sc-ctrl:#FFAB19; --sc-sens:#5CB1D6; --sc-op:#59C059;
+  --sc-look:#9966FF; --sc-mov:#4C97FF; --sc-var:#FF8C1A; --sc-pen:#0FBD8C;
+  --azul:#2E5C8A; --azul-claro:#E8F1FB;
+  --verde:#4A8C3F; --verde-claro:#E8F5E5; --verde-esc:#2E6029;
+  --laranja:#E07B2C; --laranja-claro:#FBEEDE;
+  --roxo:#6B4B9C; --roxo-esc:#4A2C7D; --roxo-claro:#EDE6F5;
+  --lilas1:#B8A0D8; --lilas2:#C8B8E0; --lilas3:#D4C5E8;
+  --creme:#F4F4F4; --tinta:#2D2D2D; --cinza:#6E6E6E; --borda:#E2DCEC;
+  --ok:#4A8C3F; --erro:#B83D3D; --alerta:#D89E00;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif;font-size:18px;line-height:1.6;
+  background:linear-gradient(135deg,var(--lilas1) 0%,var(--lilas2) 30%,var(--lilas3) 70%,var(--lilas1) 100%);
+  background-attachment:fixed;color:var(--tinta);min-height:100vh;padding-bottom:104px}
+
+#statusbar{position:sticky;top:0;z-index:75;background:#fff;padding:7px 12px;display:flex;gap:6px;
+  flex-wrap:wrap;row-gap:5px;border-bottom:3px solid var(--roxo);box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.chip{font-size:16px;font-weight:800;padding:3px 10px;border-radius:14px;background:#EEF4F2;color:#4A5C64}
+.chip.ver{background:var(--roxo);color:#fff}
+.chip.tela{background:var(--verde-esc);color:#fff}
+.chip.aula{background:var(--azul);color:#fff}
+
+.wrap{max-width:920px;margin:0 auto;padding:16px 14px}
+.card{background:#fff;border-radius:18px;padding:22px;box-shadow:0 8px 28px rgba(0,0,0,.20);margin-bottom:16px}
+h1{font-size:26px;color:var(--roxo);margin-bottom:8px;line-height:1.25}
+h2{font-size:20px;color:var(--verde-esc);margin-bottom:12px;line-height:1.3}
+h3{font-size:18px;margin-bottom:8px;color:var(--roxo-esc)}
+p{font-size:17px;line-height:1.6;margin-bottom:10px}
+ul,ol{margin:0 0 10px 22px}
+li{font-size:17px;line-height:1.55;margin-bottom:7px}
+b,strong{font-weight:800}
+
+#rodape{position:fixed;left:0;right:0;bottom:0;z-index:80;background:#fff;
+  border-top:4px solid var(--roxo);box-shadow:0 -3px 14px rgba(0,0,0,.28);
+  padding:10px 14px;display:flex;gap:8px;max-width:920px;margin:0 auto}
+#rodape button{flex:1;padding:14px 10px;border-radius:12px;border:2px solid var(--borda);
+  background:#fff;color:var(--cinza);font-size:17px;font-weight:800;cursor:pointer;font-family:inherit}
+#rodape #rbProx{flex:2;background:var(--roxo);color:#fff;border-color:var(--roxo)}
+#rodape button:disabled{color:#B9C5C2;background:#F1EFF6;border-color:#E4E0EC;cursor:not-allowed}
+#rodape #rbProx:disabled{background:#B9C5C2;border-color:#B9C5C2;color:#fff}
+
+.campo{margin-bottom:14px}
+.campo label{display:block;font-size:16px;font-weight:800;color:var(--cinza);margin-bottom:6px}
+.campo input{width:100%;padding:13px;border:3px solid #C8B8E0;border-radius:12px;font-size:17px;font-family:inherit}
+.campo input:focus{border-color:var(--roxo);outline:none}
+.turmagrid{display:flex;gap:10px;flex-wrap:wrap}
+.turmabtn{min-width:86px;padding:12px 16px;border:3px solid #C8B8E0;border-radius:12px;background:var(--roxo-claro);
+  color:var(--roxo-esc);font-size:18px;font-weight:900;cursor:pointer;font-family:inherit;transition:.18s}
+.turmabtn.sel{background:var(--roxo);color:#fff;border-color:var(--roxo-esc);box-shadow:0 4px 14px rgba(74,44,125,.35)}
+
+.mapa{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:14px 0}
+.aulacard{background:#fff;border:3px solid var(--borda);border-radius:16px;padding:16px;text-align:left;
+  font-family:inherit;cursor:pointer;transition:.18s}
+.aulacard:hover{border-color:var(--roxo);transform:translateY(-2px)}
+.aulacard .num{font-size:16px;font-weight:900;color:#fff;background:var(--roxo);border-radius:10px;
+  padding:3px 12px;display:inline-block;margin-bottom:8px}
+.aulacard .tit{font-size:18px;font-weight:800;color:var(--roxo-esc);line-height:1.3;margin-bottom:6px}
+.aulacard .sem{font-size:16px;color:var(--cinza);font-weight:700}
+.aulacard .est{font-size:16px;font-weight:800;margin-top:9px}
+.aulacard.pronta{border-left-width:9px;border-left-color:var(--verde-esc)}
+.aulacard.pronta .est{color:var(--verde-esc)}
+.aulacard.espera{border-left-width:9px;border-left-color:var(--alerta);background:#FCFAF3;cursor:not-allowed;opacity:.85}
+.aulacard.espera .num{background:var(--alerta)}
+.aulacard.espera .est{color:#8A6A00}
+.aulacard.feita{border-left-color:var(--azul)}
+
+.passo{display:flex;gap:12px;align-items:flex-start;background:#fff;border:2px solid #BFD8CF;
+  border-left:7px solid var(--verde-esc);border-radius:0 12px 12px 0;padding:12px 15px;margin:0 0 10px}
+.passonum{flex:0 0 auto;background:var(--verde-esc);color:#fff;border-radius:9px;padding:2px 11px;
+  font-size:16px;font-weight:900;font-family:Consolas,monospace}
+.passotxt{flex:1;font-size:17px;line-height:1.6}
+.nota{background:var(--creme);border-left:6px solid var(--azul);border-radius:0 12px 12px 0;
+  padding:12px 15px;margin:12px 0;font-size:16px;line-height:1.55}
+.aviso{background:var(--laranja-claro);border-left:6px solid var(--laranja);border-radius:0 12px 12px 0;
+  padding:12px 15px;margin:12px 0;font-size:16px;line-height:1.55;color:#8A4A10;font-weight:700}
+.objlista{list-style:none;margin:0}
+.objlista li{display:flex;gap:11px;align-items:flex-start;background:var(--roxo-claro);border-radius:12px;
+  padding:12px 15px;margin-bottom:10px;font-size:17px;font-weight:700;color:var(--roxo-esc)}
+.objlista .pin{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:var(--roxo);color:#fff;
+  font-size:16px;font-weight:900;display:flex;align-items:center;justify-content:center}
+
+.scwrap{background:#F0EEF6;border:2px solid #D8D2E6;border-radius:14px;padding:14px 16px;
+  margin:12px 0;overflow-x:auto;display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+.sc-l{display:inline-flex;width:auto;max-width:100%;align-items:center;gap:7px;padding:9px 14px;color:#fff;
+  font-weight:700;font-size:16px;line-height:1.35;border-radius:6px;box-shadow:inset 0 -2px 0 rgba(0,0,0,.18);
+  text-shadow:0 1px 1px rgba(0,0,0,.22);white-space:nowrap}
+.sc-l.evt{background:var(--sc-evt);color:#3B2C00;text-shadow:none;border-radius:16px 16px 6px 6px}
+.sc-l.ctrl{background:var(--sc-ctrl);color:#3B2200;text-shadow:none;border-left:9px solid rgba(0,0,0,.14)}
+.sc-l.mov{background:var(--sc-mov)}
+.sc-l.op{background:var(--sc-op);color:#12330F;text-shadow:none}
+.sc-l.pen{background:var(--sc-pen);color:#08312A;text-shadow:none}
+.sc-l.dentro{margin-left:26px}
+.sc-campo{background:#fff;color:#333;border-radius:14px;padding:3px 12px;font-weight:700;font-size:16px;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+.sc-oval{border-radius:50px;padding:3px 12px;font-weight:700;font-size:16px;color:#fff;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.45)}
+.sclegenda{font-size:16px;color:var(--cinza);font-weight:700;margin-top:8px;white-space:normal}
+
+.alt{display:block;width:100%;text-align:left;background:#F4F8FC;border:2px solid #C3D6E8;border-radius:12px;
+  padding:13px 16px;margin-bottom:9px;font-size:17px;font-family:inherit;cursor:pointer;line-height:1.5}
+.alt:hover{background:var(--azul-claro);border-color:var(--roxo)}
+.alt.certo{background:#EAF6EC;border-color:var(--ok);font-weight:800}
+.alt.errado{background:#FBEEEE;border-color:var(--erro)}
+.alt:disabled{cursor:default}
+.fb{border-radius:12px;padding:13px 16px;margin-top:10px;font-size:16px;line-height:1.55;font-weight:700}
+.fb.ok{background:var(--verde-claro);border:2px solid var(--ok);color:var(--verde-esc)}
+.fb.no{background:#FBEEEE;border:2px solid var(--erro);color:var(--erro)}
+
+.lacunas{display:flex;flex-direction:column;gap:9px;margin:12px 0}
+.lacunafrase{font-size:17px;line-height:1.7}
+.slot{display:inline-block;min-width:130px;border-bottom:3px solid var(--roxo);text-align:center;
+  font-weight:900;color:var(--roxo-esc);padding:0 8px}
+.slot.vazio{color:#B9AECD}
+.chipsbox{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.palavra{background:#fff;border:3px solid var(--azul);border-radius:12px;padding:10px 18px;font-size:17px;
+  font-weight:800;font-family:Consolas,monospace;color:var(--azul);cursor:pointer}
+.palavra:disabled{opacity:.35;cursor:default}
+
+.placar{text-align:center}
+.placarnum{font-size:54px;font-weight:900;color:var(--roxo);line-height:1.1}
+.placarlab{font-size:17px;color:var(--cinza);font-weight:800;margin-bottom:14px}
+.barra{height:20px;background:#EDE6F5;border-radius:12px;overflow:hidden;margin:12px 0}
+.barra div{height:100%;background:var(--verde-esc)}
+
+.lacuna{background:#FCFAF3;border:2px dashed var(--alerta);border-radius:12px;padding:12px 15px;
+  margin:12px 0;font-size:16px;line-height:1.55;color:#8A6A00;font-weight:700}
+.rod{font-size:16px;color:var(--cinza);text-align:center;padding:6px 0 2px;font-weight:700}
+</style>
+</head>
+<body>
+
+<div id="statusbar">
+  <span class="chip ver" id="stVer">V.01.00</span>
+  <span class="chip aula" id="stAula">Unidade 02 · 6º ano</span>
+  <span class="chip" id="stNome">sem identificação</span>
+  <span class="chip tela" id="stTela">tela 1</span>
+</div>
+
+<div class="wrap" id="palco"></div>
+
+<div id="rodape">
+  <button id="rbVolta">Voltar</button>
+  <button id="rbProx">Próximo</button>
+</div>
+
+<script>
+/* =========================================================
+   CONTEUDO · tudo que e da aula vive aqui.
+   Quando o motor-faca chegar, este objeto vira o JSON de
+   conteudo e o motor passa a montar as telas.
+   ========================================================= */
+const CONT = {
+  versao:"V.01.00",
+  ano:"6º ano",
+  unidade:"Unidade 02 · Estratégias computacionais: formas e cores",
+  turmas:["6º A","6º B"],
+  aulas:[
+    {
+      n:1, status:"pronta",
+      titulo:"Desenhando formas geométricas",
+      semana:"semana a confirmar",
+      telas:[
+        {tipo:"objetivos", foco:true, card:"Card 01 · O que vamos aprender?",
+         itens:[
+           "Compreender como formas geométricas podem ser construídas por repetição de comandos.",
+           "Utilizar blocos de repetição para criar padrões visuais.",
+           "Identificar a relação entre ação repetida e resultado final (forma geométrica)."
+         ],
+         habilidades:"EF06CO03 · EF06CO05"},
+
+        {tipo:"texto", foco:false, card:"Card 03 · Criando sua primeira forma",
+         titulo:"O que vamos construir",
+         html:`<p>Nesta unidade você vai criar dois projetos no StartLab.</p>
+               <p>O primeiro é o <b>Mago das bolhas</b>: um mago que faz bolhas em forma de figuras geométricas. Quem desenha é a varinha, que vira uma caneta.</p>
+               <p>O segundo é a <b>Corrida matemática</b>, em que o corredor avança respondendo contas. Esse fica para as próximas aulas.</p>
+               <div class="nota">Hoje a varinha vai desenhar <b>triângulos</b> em lugares sorteados da cena. Toda a mágica é matemática: 360 graus divididos pelo número de lados.</div>`},
+
+        {tipo:"passos", foco:false, card:"Card 04 · Faça como eu fiz",
+         titulo:"Monte o palco do mago",
+         intro:"Abra o StartLab pela atividade “Meu Projeto - Comece Aqui” e clique em Iniciar meu projeto. Depois siga os passos.",
+         passos:[
+           "No canto inferior direito, clique em <b>Selecionar Cenário</b> e escolha <b>Casa da bruxa</b>. Pode escolher outro cenário se preferir.",
+           "Apague o personagem Cody: clique na lixeira com o X, no topo da miniatura dele, logo abaixo do palco.",
+           "Clique em <b>Selecione um Ator</b> (o ícone de gatinho) e procure o <b>Mago</b>.",
+           "Com o mago selecionado, mude o campo <b>Tamanho</b> de 100 para <b>70</b>. Arraste o mago para o canto esquerdo.",
+           "Clique de novo em <b>Selecione um Ator</b> e procure a <b>Varinha mágica</b>.",
+           "Com a varinha selecionada, mude o campo <b>Direção</b> de 90 para <b>1</b>, para ela ficar em pé, e coloque na mão do mago."
+         ],
+         nota:"O tamanho 100 quer dizer 100%. Cada personagem tem um tamanho próprio, então um ator com 100 pode ficar menor que o mago com 70."},
+
+        {tipo:"passos", foco:false, card:"Card 04 · Faça como eu fiz",
+         titulo:"Ajuste o centro da varinha",
+         intro:"Este passo é o segredo da aula. Sem ele, o desenho sai do meio da varinha, e não da ponta.",
+         passos:[
+           "Com a varinha selecionada, clique na aba <b>Fantasias</b>, no canto superior esquerdo, ao lado da aba Código.",
+           "Clique e segure o botão esquerdo do mouse num canto da área quadriculada e arraste até o outro canto, para selecionar a varinha inteira, com os raios.",
+           "Clique sobre a imagem selecionada e arraste. Vai aparecer um <b>alvo</b> no centro da área de desenho.",
+           "Mova a varinha até o alvo ficar <b>na ponta</b> dela. É de lá que o traço vai sair."
+         ],
+         nota:"Errou o arrasto? Use a setinha roxa de desfazer, perto do nome da fantasia. Se não der para desfazer, apague o ator e coloque outro."},
+
+        {tipo:"passos", foco:false, card:"Card 04 · Faça como eu fiz",
+         titulo:"Ligue a caneta e comece o código",
+         intro:"Volte para a aba Código com a varinha selecionada.",
+         passos:[
+           "No menu da esquerda, lá embaixo, clique em <b>Adicionar uma Extensão</b> e escolha <b>Caneta</b>. Vão aparecer blocos verdes novos.",
+           "Em <b>Eventos</b>, arraste o bloco <b>quando bandeira verde for clicado</b>.",
+           "Em <b>Movimento</b>, encaixe embaixo o bloco <b>vá para posição aleatória</b>.",
+           "Em <b>Caneta</b>, encaixe o bloco <b>use a caneta</b>."
+         ],
+         codigo:`<div class="scwrap">
+           <div class="sc-l evt">quando <span class="sc-oval" style="background:#4CAF50">&#9873;</span> for clicado</div>
+           <div class="sc-l mov">vá para <span class="sc-campo">posição aleatória</span></div>
+           <div class="sc-l pen">use a caneta</div>
+           <div class="sclegenda">Teste na bandeira verde: a cada clique a varinha deve pular para um lugar diferente da cena.</div>
+         </div>`},
+
+        {tipo:"passos", foco:false, card:"Card 04 · Faça como eu fiz",
+         titulo:"Desenhe o triângulo",
+         intro:"Para fechar uma figura, a caneta dá uma volta inteira: 360 graus divididos pelo número de lados. O triângulo tem 3 lados.",
+         passos:[
+           "Em <b>Movimento</b>, pegue <b>gire 15 graus</b> e leve para a área de código, sem encaixar ainda.",
+           "Em <b>Operadores</b>, pegue o bloco de divisão e encaixe dentro do gire. Escreva <b>360</b> no primeiro espaço e <b>3</b> no segundo.",
+           "Em <b>Movimento</b>, pegue <b>mova 10 passos</b> e troque o 10 por <b>50</b>.",
+           "Em <b>Controle</b>, pegue <b>repita 10 vezes</b>, troque o 10 por <b>3</b> e coloque o mova e o gire dentro dele.",
+           "Encaixe o repita no código principal e teste na bandeira verde."
+         ],
+         codigo:`<div class="scwrap">
+           <div class="sc-l evt">quando <span class="sc-oval" style="background:#4CAF50">&#9873;</span> for clicado</div>
+           <div class="sc-l mov">vá para <span class="sc-campo">posição aleatória</span></div>
+           <div class="sc-l pen">use a caneta</div>
+           <div class="sc-l ctrl">repita <span class="sc-campo">3</span> vezes</div>
+           <div class="sc-l mov dentro">mova <span class="sc-campo">50</span> passos</div>
+           <div class="sc-l mov dentro">gire <span class="sc-oval" style="background:#59C059;color:#12330F">360 / 3</span> graus</div>
+           <div class="sclegenda">Sem o repita, a caneta risca um lado só. O triângulo precisa do mesmo traço três vezes.</div>
+         </div>`},
+
+        {tipo:"passos", foco:false, card:"Card 04 · Faça como eu fiz",
+         titulo:"Tire os rabiscos e escolha a cor",
+         intro:"O desenho já sai, mas a cena fica riscada de um triângulo até o outro. Agora arrumamos isso.",
+         passos:[
+           "Em <b>Caneta</b>, arraste <b>apague tudo</b> e deixe solto na área de código. Clicando nele, a cena limpa.",
+           "Encaixe <b>mude o tamanho da caneta para 5</b> logo abaixo do bloco da bandeira verde.",
+           "Encaixe <b>mude a cor da caneta para</b> e escolha o ciano (cor 51, saturação 100, brilho 100) ou a cor que preferir.",
+           "Encaixe <b>levante a caneta</b> antes do vá para posição aleatória. Assim ela só risca a figura, e não o caminho.",
+           "Teste várias vezes na bandeira verde."
+         ],
+         codigo:`<div class="scwrap">
+           <div class="sc-l evt">quando <span class="sc-oval" style="background:#4CAF50">&#9873;</span> for clicado</div>
+           <div class="sc-l pen">mude o tamanho da caneta para <span class="sc-campo">5</span></div>
+           <div class="sc-l pen">mude a cor da caneta para <span class="sc-oval" style="background:#22D3EE"></span></div>
+           <div class="sc-l pen">levante a caneta</div>
+           <div class="sc-l mov">vá para <span class="sc-campo">posição aleatória</span></div>
+           <div class="sc-l pen">use a caneta</div>
+           <div class="sc-l ctrl">repita <span class="sc-campo">3</span> vezes</div>
+           <div class="sc-l mov dentro">mova <span class="sc-campo">50</span> passos</div>
+           <div class="sc-l mov dentro">gire <span class="sc-oval" style="background:#59C059;color:#12330F">360 / 3</span> graus</div>
+           <div class="sclegenda">Código completo da varinha. Alguns triângulos podem nascer no canto da tela ou atrás do mago: os atores ficam sempre por cima do traço da caneta.</div>
+         </div>`,
+         nota:"Salve seu projeto antes de sair do StartLab."},
+
+        {tipo:"lacuna", foco:true, card:"Atividade 1 · Formas geométricas",
+         titulo:"Complete as frases",
+         frases:[
+           "1 · Para formar uma figura geométrica, é necessário repetir ",
+           "2 · Cada repetição representa ",
+           "3 · O giro ajuda a mudar "
+         ],
+         fins:[".", " da forma.", " do desenho."],
+         palavras:["direção","um lado","comandos"],
+         certo:["comandos","um lado","direção"],
+         fb:"Repetir comandos forma os lados, e o giro muda a direção. É a soma dos dois que fecha a figura."},
+
+        {tipo:"quiz", foco:true, card:"Atividade 2 · Padrões",
+         enunciado:`<p>Pensando no uso de repetição para criar padrões, analise as afirmações a seguir, com (V) para verdadeira e (F) para falsa.</p>
+           <ul>
+             <li>( ) Repetir formas várias vezes pode criar um padrão visual.</li>
+             <li>( ) Cada repetição pode contribuir para a formação do desenho completo.</li>
+             <li>( ) Padrões visuais não utilizam repetição de comandos.</li>
+             <li>( ) A repetição ajuda a automatizar o desenho de várias formas.</li>
+           </ul>
+           <p>As afirmativas são, respectivamente:</p>`,
+         alts:["V - V - F - V.","V - F - V - F.","F - V - F - V.","V - V - V - F."],
+         certo:0,
+         fbs:[
+           "Correto. A repetição cria padrão, ajuda a formar o desenho inteiro e automatiza o trabalho. Só a terceira frase é falsa.",
+           "Reveja a segunda frase: repetir uma ação várias vezes ajuda ou não a construir o desenho completo?",
+           "Reveja a primeira frase: repetir formas contribui para criar padrão visual?",
+           "Reveja a terceira frase: dá para criar padrão visual sem repetir comandos?"
+         ]},
+
+        {tipo:"quiz", foco:true, card:"Atividade 3 · Hexágono",
+         enunciado:`<p>A turma está desenhando formas com a varinha. Veja parte do código criado:</p>
+           <div class="scwrap">
+             <div class="sc-l evt">quando <span class="sc-oval" style="background:#4CAF50">&#9873;</span> for clicado</div>
+             <div class="sc-l pen">mude a cor da caneta para <span class="sc-oval" style="background:#E53935"></span></div>
+             <div class="sc-l pen">levante a caneta</div>
+             <div class="sc-l mov">vá para <span class="sc-campo">posição aleatória</span></div>
+             <div class="sc-l pen">use a caneta</div>
+             <div class="sc-l ctrl">repita <span class="sc-campo">3</span> vezes</div>
+             <div class="sc-l mov dentro">mova <span class="sc-campo">10</span> passos</div>
+             <div class="sc-l mov dentro">gire <span class="sc-oval" style="background:#59C059;color:#12330F">360 / 3</span> graus</div>
+           </div>
+           <p>Sofia quer transformar esse triângulo em um hexágono colorido e precisa ajustar a repetição e o cálculo do ângulo. Qual alteração deve ser feita no código?</p>`,
+         alts:["Repetir 3 vezes e girar 360 dividido por 6.","Repetir 6 vezes e girar 360 dividido por 6.",
+               "Repetir 6 vezes e girar 360 graus.","Repetir 3 vezes e girar 360 graus."],
+         certo:1,
+         fbs:[
+           "Pense na quantidade de lados do hexágono: repetir 3 vezes é suficiente para essa figura?",
+           "Correto. O hexágono tem 6 lados: repete 6 vezes e gira 360 dividido por 6, e a forma fecha.",
+           "Reveja o valor do giro: girar 360 graus a cada repetição impede a forma de ser construída.",
+           "Olhe as duas coisas ao mesmo tempo: a quantidade de repetições e o ângulo do giro."
+         ]},
+
+        {tipo:"desafio", foco:false, card:"Hora do desafio",
+         titulo:"Do triângulo para o quadrado",
+         html:`<p>Nesta aula você montou o palco do mago e fez a varinha desenhar triângulos em posições sorteadas. O desafio é fazer ela desenhar outra forma.</p>
+           <ol>
+             <li>Altere o código para que a varinha desenhe um <b>quadrado perfeito</b>, no lugar do triângulo.</li>
+             <li>Troque a cor da caneta por uma de sua preferência, que não seja o ciano.</li>
+             <li>Use a lógica certa para o giro e para a quantidade de repetições do quadrado.</li>
+           </ol>
+           <div class="nota">Você pode fazer o desafio no seu próprio projeto ou num projeto em branco.</div>
+           <div class="aviso">Quantos lados tem o quadrado? Esse número aparece em dois lugares do código.</div>`},
+
+        {tipo:"placar", foco:true, card:"Placar da aula 01"}
+      ]
+    },
+    {n:2, status:"espera", titulo:"aguardando o material da aula", semana:"semana a confirmar", telas:[]},
+    {n:3, status:"espera", titulo:"aguardando o material da aula", semana:"semana a confirmar", telas:[]},
+    {n:4, status:"espera", titulo:"aguardando o material da aula", semana:"semana a confirmar", telas:[]}
+  ]
+};
+
+/* ========================= ESTADO ========================= */
+const CHAVE = "facast6_u02_v0100";
+let S = {nome:"", turma:"", aula:0, tela:-1, resp:{}, esc:{}, feitas:{}};
+const palco = document.getElementById("palco");
+const rbProx = document.getElementById("rbProx");
+const rbVolta = document.getElementById("rbVolta");
+
+function salvar(){
+  try{ localStorage.setItem(CHAVE, JSON.stringify({nome:S.nome,turma:S.turma,resp:S.resp,esc:S.esc,feitas:S.feitas})); }
+  catch(e){ /* navegador sem armazenamento · a aula continua normalmente */ }
+}
+function carregar(){
+  try{
+    const b = localStorage.getItem(CHAVE);
+    if(!b) return;
+    const d = JSON.parse(b);
+    S.nome = d.nome||""; S.turma = d.turma||""; S.resp = d.resp||{}; S.esc = d.esc||{}; S.feitas = d.feitas||{};
+  }catch(e){ /* sem armazenamento · comeca do zero */ }
+}
+
+/* ============ TELA CHEIA · entra no clique, sai sozinha ============ */
+function ajustarFoco(quer){
+  try{
+    const dentro = !!document.fullscreenElement;
+    if(quer && !dentro && document.documentElement.requestFullscreen){
+      document.documentElement.requestFullscreen().catch(()=>{});
+    }else if(!quer && dentro && document.exitFullscreen){
+      document.exitFullscreen().catch(()=>{});
+    }
+  }catch(e){ /* iPhone e iPad nao aceitam tela cheia aqui · segue sem ela */ }
+}
+
+/* ========================= NAVEGACAO ========================= */
+function telasDaAula(){ return CONT.aulas[S.aula-1] ? CONT.aulas[S.aula-1].telas : []; }
+
+function irPara(aula, tela, querFoco){
+  ajustarFoco(querFoco);
+  S.aula = aula; S.tela = tela;
+  desenhar();
+}
+
+function proxima(){
+  const t = telasDaAula();
+  if(S.tela < t.length-1){
+    const nova = t[S.tela+1];
+    irPara(S.aula, S.tela+1, !!nova.foco);
+  }else{
+    S.feitas["a"+S.aula] = true; salvar();
+    irPara(0, -1, false);
+  }
+}
+function voltar(){
+  if(S.tela > 0){
+    const nova = telasDaAula()[S.tela-1];
+    irPara(S.aula, S.tela-1, !!nova.foco);
+  }else{
+    irPara(0, -1, false);
+  }
+}
+
+/* ========================= DESENHO ========================= */
+function chips(txt){
+  document.getElementById("stVer").textContent = CONT.versao;
+  document.getElementById("stNome").textContent = S.nome ? (S.nome+" · "+S.turma) : "sem identificação";
+  document.getElementById("stTela").textContent = txt;
+}
+
+function desenhar(){
+  window.scrollTo(0,0);
+  if(!S.nome){ telaIdentificacao(); return; }
+  if(S.aula === 0){ telaMapa(); return; }
+  const t = telasDaAula()[S.tela];
+  const total = telasDaAula().length;
+  chips("aula "+S.aula+" · tela "+(S.tela+1)+" de "+total);
+  rbVolta.disabled = false; rbProx.disabled = false;
+  rbProx.textContent = (S.tela === total-1) ? "Voltar ao cronograma" : "Próximo";
+  if(t.tipo==="objetivos") telaObjetivos(t);
+  else if(t.tipo==="texto") telaTexto(t);
+  else if(t.tipo==="passos") telaPassos(t);
+  else if(t.tipo==="lacuna") telaLacuna(t);
+  else if(t.tipo==="quiz") telaQuiz(t);
+  else if(t.tipo==="desafio") telaTexto(t);
+  else if(t.tipo==="placar") telaPlacar(t);
+}
+
+function telaIdentificacao(){
+  chips("identificação");
+  rbVolta.disabled = true; rbProx.disabled = true; rbProx.textContent = "Começar";
+  palco.innerHTML = `
+    <div class="card">
+      <h1>Faça como eu fiz</h1>
+      <h2>${CONT.ano} · ${CONT.unidade}</h2>
+      <p>Escreva seu nome e escolha sua turma para começar.</p>
+      <div class="campo"><label for="inNome">Seu nome</label><input id="inNome" type="text" autocomplete="off" value="${S.nome}"></div>
+      <div class="campo"><label>Sua turma</label><div class="turmagrid" id="grTurma"></div></div>
+    </div>`;
+  const gr = document.getElementById("grTurma");
+  CONT.turmas.forEach(t=>{
+    const b = document.createElement("button");
+    b.className = "turmabtn" + (S.turma===t?" sel":"");
+    b.textContent = t;
+    b.onclick = ()=>{ S.turma = t; conferir(); document.querySelectorAll(".turmabtn").forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); };
+    gr.appendChild(b);
+  });
+  const inp = document.getElementById("inNome");
+  inp.oninput = conferir;
+  function conferir(){ rbProx.disabled = !(inp.value.trim().length>1 && S.turma); }
+  conferir();
+  rbProx.onclick = ()=>{
+    S.nome = inp.value.trim(); salvar();
+    rbProx.onclick = proxima; rbVolta.onclick = voltar;
+    irPara(0,-1,false);
+  };
+}
+
+function telaMapa(){
+  chips("cronograma");
+  rbVolta.disabled = true; rbProx.disabled = true; rbProx.textContent = "Escolha uma aula";
+  let cards = "";
+  CONT.aulas.forEach(a=>{
+    const feita = S.feitas["a"+a.n];
+    const cls = a.status==="pronta" ? ("aulacard pronta"+(feita?" feita":"")) : "aulacard espera";
+    const est = a.status==="pronta" ? (feita ? "você já terminou · pode refazer" : "pronta para começar") : "aguardando o material";
+    cards += `<button class="${cls}" data-a="${a.n}" ${a.status!=="pronta"?"disabled":""}>
+        <span class="num">Aula ${a.n} de 4</span>
+        <div class="tit">${a.titulo}</div>
+        <div class="sem">${a.semana}</div>
+        <div class="est">${est}</div>
+      </button>`;
+  });
+  palco.innerHTML = `
+    <div class="card">
+      <h1>Cronograma da Unidade 02</h1>
+      <h2>${CONT.ano} · escolha por onde continuar</h2>
+      <p>Você não precisa terminar tudo no mesmo dia. Este arquivo guarda no seu navegador em que aula você parou.</p>
+      <div class="mapa">${cards}</div>
+      <div class="lacuna">As aulas 02, 03 e 04 abrem assim que o material delas chegar.</div>
+    </div>`;
+  palco.querySelectorAll(".aulacard[data-a]").forEach(b=>{
+    b.onclick = ()=>{ const n = +b.dataset.a; const t0 = CONT.aulas[n-1].telas[0]; irPara(n, 0, !!(t0&&t0.foco)); };
+  });
+}
+
+function cabeca(t, a){
+  return `<div class="chipsbox"><span class="chip">${t.card}</span><span class="chip">Aula ${a.n} · ${a.titulo}</span></div>`;
+}
+
+function telaObjetivos(t){
+  const a = CONT.aulas[S.aula-1];
+  let li = "";
+  t.itens.forEach((x,i)=>{ li += `<li><span class="pin">${i+1}</span><span>${x}</span></li>`; });
+  palco.innerHTML = `<div class="card">${cabeca(t,a)}
+    <h1>O que vamos aprender</h1>
+    <h2>Aula ${a.n} · ${a.titulo}</h2>
+    <ul class="objlista">${li}</ul>
+    <div class="nota">Habilidades da BNCC nesta aula: ${t.habilidades}</div>
+    <div class="lacuna">Tela provisória. O motor definitivo das telas de objetivo é do nó de Objetivos e ainda não chegou aqui.</div>
+  </div>`;
+}
+
+function telaTexto(t){
+  const a = CONT.aulas[S.aula-1];
+  palco.innerHTML = `<div class="card">${cabeca(t,a)}
+    <h1>${t.titulo}</h1>${t.html}</div>`;
+}
+
+function telaPassos(t){
+  const a = CONT.aulas[S.aula-1];
+  let ps = "";
+  t.passos.forEach((x,i)=>{ ps += `<div class="passo"><span class="passonum">${i+1}</span><span class="passotxt">${x}</span></div>`; });
+  palco.innerHTML = `<div class="card">${cabeca(t,a)}
+    <h1>${t.titulo}</h1>
+    <p>${t.intro}</p>
+    ${ps}
+    ${t.codigo||""}
+    ${t.nota?`<div class="nota">${t.nota}</div>`:""}
+  </div>`;
+}
+
+function telaLacuna(t){
+  const a = CONT.aulas[S.aula-1];
+  const chave = "a"+S.aula+"t"+S.tela;
+  const feito = S.resp[chave];
+  let frases = "";
+  t.frases.forEach((f,i)=>{
+    frases += `<div class="lacunafrase">${f}<span class="slot vazio" data-s="${i}">_______</span>${t.fins[i]}</div>`;
+  });
+  let pal = "";
+  t.palavras.forEach(p=>{ pal += `<button class="palavra" data-p="${p}">${p}</button>`; });
+  palco.innerHTML = `<div class="card">${cabeca(t,a)}
+    <h1>${t.titulo}</h1>
+    <p>Leia as frases e clique nas palavras, na ordem que completa cada lacuna.</p>
+    <div class="lacunas">${frases}</div>
+    <div class="chipsbox" id="boxPal">${pal}</div>
+    <button class="alt" id="btLimpa" style="max-width:220px;text-align:center;font-weight:800">Limpar respostas</button>
+    <div id="fbLac"></div>
+  </div>`;
+  const slots = [...palco.querySelectorAll(".slot")];
+  let posto = [];
+  function pintar(){
+    slots.forEach((s,i)=>{
+      s.textContent = posto[i] || "_______";
+      s.classList.toggle("vazio", !posto[i]);
+    });
+    palco.querySelectorAll(".palavra").forEach(b=>{ b.disabled = posto.includes(b.dataset.p); });
+    if(posto.length === slots.length) conferir();
+  }
+  function conferir(){
+    const ok = posto.every((p,i)=> p === t.certo[i]);
+    S.resp[chave] = ok ? "ok" : "no"; salvar();
+    document.getElementById("fbLac").innerHTML =
+      `<div class="fb ${ok?"ok":"no"}">${ok ? "Sequência correta. " + t.fb : "Ainda não. Use o botão de limpar e tente de novo pensando em qual palavra completa cada frase."}</div>`;
+  }
+  palco.querySelectorAll(".palavra").forEach(b=>{
+    b.onclick = ()=>{ if(posto.length < slots.length){ posto.push(b.dataset.p); pintar(); } };
+  });
+  document.getElementById("btLimpa").onclick = ()=>{ posto = []; document.getElementById("fbLac").innerHTML=""; pintar(); };
+  if(feito==="ok"){ posto = t.certo.slice(); pintar(); } else { pintar(); }
+}
+
+function telaQuiz(t){
+  const a = CONT.aulas[S.aula-1];
+  const chave = "a"+S.aula+"t"+S.tela;
+  let alts = "";
+  t.alts.forEach((x,i)=>{ alts += `<button class="alt" data-i="${i}">${String.fromCharCode(65+i)}) ${x}</button>`; });
+  palco.innerHTML = `<div class="card">${cabeca(t,a)}
+    <h1>${t.card}</h1>
+    ${t.enunciado}
+    <div id="boxAlt">${alts}</div>
+    <div id="fbQuiz"></div>
+  </div>`;
+  function responder(i){
+    const ok = (i === t.certo);
+    if(!S.resp[chave]) { S.resp[chave] = ok ? "ok" : "no"; S.esc[chave] = i; salvar(); }
+    palco.querySelectorAll(".alt").forEach(b=>{
+      b.disabled = true;
+      const j = +b.dataset.i;
+      if(j === t.certo) b.classList.add("certo");
+      if(j === i && !ok) b.classList.add("errado");
+    });
+    document.getElementById("fbQuiz").innerHTML = `<div class="fb ${ok?"ok":"no"}">${t.fbs[i]}</div>`;
+  }
+  palco.querySelectorAll(".alt").forEach(b=>{ b.onclick = ()=> responder(+b.dataset.i); });
+  if(S.resp[chave] !== undefined && S.esc[chave] !== undefined) responder(S.esc[chave]);
+}
+
+function telaPlacar(t){
+  const a = CONT.aulas[S.aula-1];
+  const total = a.telas.filter(x=>x.tipo==="quiz"||x.tipo==="lacuna").length;
+  let acertos = 0;
+  a.telas.forEach((x,i)=>{ if((x.tipo==="quiz"||x.tipo==="lacuna") && S.resp["a"+S.aula+"t"+i]==="ok") acertos++; });
+  const pct = total ? Math.round(acertos*100/total) : 0;
+  palco.innerHTML = `<div class="card placar">
+    <h1>Placar da aula ${a.n}</h1>
+    <div class="placarnum">${acertos} de ${total}</div>
+    <div class="placarlab">atividades certas de primeira</div>
+    <div class="barra"><div style="width:${pct}%"></div></div>
+    <p>${S.nome} · ${S.turma}</p>
+    <p>${acertos===total ? "Tudo certo. Mostre o projeto do mago ao professor." : "Volte nas atividades que ficaram em vermelho antes de mostrar o projeto ao professor."}</p>
+    <div class="nota" style="text-align:left">Não esqueça de registrar as respostas na plataforma do Alura e de salvar seu projeto no StartLab.</div>
+    <div class="rod">Faça como eu fiz · ${CONT.versao} · N.05.01.02.03_FACA-START-U02-A0104_004</div>
+  </div>`;
+}
+
+/* ========================= INICIO ========================= */
+carregar();
+rbProx.onclick = proxima;
+rbVolta.onclick = voltar;
+desenhar();
+</script>
+</body>
+</html>
